@@ -1,0 +1,45 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+void swap(int *a,int *b){
+	int temp = *a;
+	*a = *b;
+	*b = temp;
+}
+void sS(int a[],int n){
+int min;
+	for(int i=0;i<n-1;i++){
+		min = i;
+		for(int j = i+1;j<n;j++){
+			if(a[j]<a[min])
+				min = j;
+		}
+		swap(&a[min],&a[i]);
+	}
+}
+
+void printA(int a[],int n){
+	for(int i=0;i<n;i++){
+		printf("%d \t",a[i]);
+	}
+	printf("\n");
+}
+int main(){
+	int n;
+	printf("Enter the number of elements in the array\n");
+	scanf("%d",&n);
+	int *a;
+	a = malloc(sizeof(int)*n);
+	for(int i=0;i<n;i++){
+		a[i] = rand()%20;	
+	}
+	printf("Unsorted array \n");
+	printA(a,n);
+	double start = clock();
+	sS(a,n);
+	double end = clock();
+	printf("Sorted array\n");
+	printA(a,n);
+	double complexity = (end - start)/CLOCKS_PER_SEC;
+	printf("time elapsed = %f",complexity);
+}
